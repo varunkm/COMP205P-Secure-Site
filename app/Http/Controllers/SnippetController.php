@@ -44,8 +44,9 @@ class SnippetController extends Controller
       'text' => 'required|max:255',
     ]);
     $snippet = Snippet::find($snippetId);
-    if ($request->user()->id === $snippet->user_id)
+    if ($request->user()->id == $snippet->user_id)
       $snippet->text = $request->text;
+      $snippet->save();
     return redirect('/user/'.$request->user()->id);
   }
 

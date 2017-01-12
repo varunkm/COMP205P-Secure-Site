@@ -19,7 +19,7 @@
 
 				<!-- Header -->
 					<header id="header">
-						<h1><a href="#">COMP205P</a></h1>
+						<h1><a href="{{url('/')}}">COMP205P</a></h1>
 						<nav class="links">
 							<ul>
 								@if (Auth::guest())
@@ -57,7 +57,8 @@
 					</header>
 
 					<div id="id03" class="modal">
-						<form id="settingsForm" class="modal-content animate" action="">
+						<form id="settingsForm" class="modal-content animate" action="{{ url('/user/edit/'.$user->id) }}" method = "POST" >
+							{{ csrf_field() }}
     						<div class="imgcontainer">
       							<span onclick="document.getElementById('id03').style.display='none'" class="close" title="Close Modal">&times;</span>
 								<div class = "avatarImage">
@@ -67,7 +68,7 @@
 
     						<div class="logcontainer">
 								<label><b>Username</b></label>
-      							<input type="text" placeholder="Current Username" name="newUsername" id="newUsername"value="Current Username" required>
+      							<input type="text" placeholder="Current Username" name="newUsername" id="newUsername"value="{{ $user->name }}" required>
 								<label><b>Old Password</b></label>
       							<input type="text" placeholder="Enter Current Password" name="oldPassword">
       							<label><b>New Password</b></label>
@@ -112,7 +113,6 @@
 
 			</div>
 
-
             <div id="id06" class="modal">
                 <form id="newSnippet" class="modal-content animate" action="{{ route('createSnippet') }}" method="POST">
 									{{ csrf_field() }}
@@ -132,7 +132,35 @@
                     </div>
                 </form>
             </div>
-						<h1>{{ $user->name }}</h1>
+						@if (count($snippets) > 0 and !Auth::guest() and Auth::user()->id == $user->id)
+							@foreach($snippets as $snippet)
+							@php $modal_id = 'editmodal'.$snippet->id @endphp
+
+							<div id="{{ $modal_id }}" class="modal">
+	                <form id="newSnippet" class="modal-content animate" action="{{ url('/snippet/edit/'.$snippet->id) }}" method="POST">
+										{{ csrf_field() }}
+											<div class="imgcontainer">
+	                        <span onclick="document.getElementById('{{ $modal_id }}').style.display='none'" class="close" title="Close Modal">&times;</span>
+	                    </div>
+
+	                    <div class="logcontainer">
+	                        <label><b>Snippet</b></label>
+	                        <textarea id="snippet" name="text" rows="4" style="resize: vertical" placeholder="{{$snippet->text}}"></textarea>
+	                        <!-- <input class="resizable" type="text" placeholder="Snippet" name="snippet" id="snippet" required> -->
+	                        <input class="logbutton" type="submit" id="submit6" name="submit6" value="Edit Snippet">
+	                    </div>
+
+	                    <div class="container" style="background-color:#f1f1f1">
+	                        <button type="button" onclick="document.getElementById('{{ $modal_id }}').style.display='none'" class="logcancelbtn">Cancel</button>
+	                    </div>
+	                </form>
+	            </div>
+							@endforeach
+						@endif
+						<img style = "margin-left:20px" src="{{ $user->icon_url }}" alt="User Image" width = "100px">
+						<h1 style = "padding-left:20px">{{ $user->name }}</h1>
+						<a style = "margin-left:20px" href="{{ $user->homepage }}">My Site</a>
+						<br><br>
 						@if (count($snippets) > 0)
             <div class="content table-responsive table-full-width">
                 <table class="table table-hover table-striped my-table">
@@ -156,7 +184,7 @@
 
 														@if(!Auth::guest() and Auth::user()->id == $user->id)
 														<td class="td-actions text-right">
-															<button type="button" rel="tooltip" title="Edit Citation" class="btn btn-info btn-simple btn-xs" data-toggle="modal" data-target="#id06">
+															<button type="button" rel="tooltip" title="Edit Citation" class="btn btn-info btn-simple btn-xs" data-toggle="modal" data-target="{{ '#editmodal'.$snippet->id }}">
 																<i class="fa fa-edit"></i>
 															</button>
 															<form action="{{ url('/snippet/'.$snippet->id) }}" method="POST">

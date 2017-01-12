@@ -21,5 +21,5 @@ Route::group(
   Route::post('/snippet', ['as' => 'createSnippet', 'uses' => 'SnippetController@store']);
   Route::delete('/snippet/{id}', 'SnippetController@destroy');
   Route::post('/snippet/edit/{id}', 'SnippetController@modify');
-  Route::post('user/edit/{user_id}','UserController@modify');
+  Route::post('/user/edit/{user_id}','UserController@modify');
 });

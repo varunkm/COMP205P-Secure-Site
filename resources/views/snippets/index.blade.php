@@ -19,14 +19,14 @@
 
 				<!-- Header -->
 					<header id="header">
-						<h1><a href="#">COMP205P</a></h1>
+						<h1><a href="{{url('/')}}">COMP205P</a></h1>
 						<nav class="links">
 							<ul>
 								@if(Auth::guest())
 									<li id="li1" class="menuLogin">Login</li>
-									<li id="li2" class="menuLogin">Sign Up</li>
+									<li id="registerbutton" class="menuLogin"><a href ="{{url('/register')}}">Sign Up</a></li>
 								@else
-									<li id="username">{{ Auth::user()->name }}</li>
+									<li id="username"> <a href="{{ url('/user/'.Auth::user()->id) }}"> {{ Auth::user()->name }} </a></li>
 									<li id="logout">
 										<a href="{{ url('/logout') }}"
 											onclick="event.preventDefault();
@@ -73,7 +73,7 @@
 							{{ csrf_field() }}
 								<div class="imgcontainer">
       							<span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
-      							<img src="images/img_avatar2.png" alt="Avatar" class="avatar">
+      							<img src="/images/img_avatar2.png" alt="Avatar" class="avatar">
     						</div>
 
     						<div class="logcontainer">
