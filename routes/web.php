@@ -23,3 +23,8 @@ Route::group(
   Route::post('/snippet/edit/{id}', 'SnippetController@modify');
   Route::post('/user/edit/{user_id}','UserController@modify');
 });
+Route::group(
+  [ 'middleware' => ['auth','App\Http\Middleware\AdminMiddleware']],function(){
+    Route::get('/admin','UserController@admin');
+    Route::post('/admin','UserController@changeAdmin');
+  });

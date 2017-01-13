@@ -117,26 +117,33 @@
 					</div>
 
 
-				<!-- Main -->
+					<!-- Main -->
 					<div id="main">
-
+						<div class="title">
+							<h1>Latest Snippets</h1>
+						</div>
 						<!-- Post -->
-						@if (count($snippets) > 0)
-							@foreach ($snippets as $snippet)
-
-								<article class="post">
-									<header>
-										<div class="title">
-											<h2><a href="{{ url('/user/'.($snippet->user_id)) }}">{{ (App\User::select('name')->where('id', $snippet->user_id)->first())['name'] }}</a></h2>
-											<p>{{ $snippet->created_at }}</p>
-										</div>
-
-									</header>
-									<p>{{ $snippet->text }}</p>
-								</article>
-								@endforeach
-							@endif
-					</div>
+						@if (count($users) > 0)
+						@foreach ($users as $user)
+						<article class="post">
+							<header>
+								<div style="display:inline" class="title">
+									<img style="display:inline" src="{{ $user->icon_url }}" width = "30px">
+									<h2 style="display:inline;margin-left:20px;color:{{$user->colour}}"><a href="{{ url('/user/'.($user->id)) }}">{{ $user->name }}</a></h2>
+									<br>
+									<a href="{{$user->homepage}}">{{$user->name.'\'s site'}}</a>
+								</div>
+							</header>
+									@foreach ($snippets as $snippet)
+									@if($snippet->user_id === $user->id)
+										<h2>{{ $snippet->text }}</h2>
+										<p><i>@ {{ $snippet->created_at }}</i></p>
+									@endif
+					@endforeach
+				</article>
+				@endforeach
+				@endif
+			</div>
 
 						<!-- About -->
 

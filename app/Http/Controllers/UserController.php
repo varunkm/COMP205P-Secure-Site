@@ -13,14 +13,34 @@ class UserController extends Controller
           'snippets' =>Snippet::where('user_id',$userId)->get(),
       ]);
     }
+    public function admin(Request $request)
+    {
+      return view('snippets.admin', [
+          'user'=>$request->user(),
+          'users'=>User::all(),
+      ]);
+    }
+    public function changeAdmin(Request $request)
+    {
+      $users = User::all();
+      foreach($users as $user)
+      {
+        $admin = $request->input('admin'.$user->id,($user->admin ? 'on' : 'off'));
+        $snip_acc = $request->input('snippetAccess'.$user->id,($user->snippetAccess ? 'on':'off'));
+        $user->admin = $admin=='on';
+        $user->snippetAccess = $snip_acc=='on';
+        $user->save();
 
+      }
+      return redirect('/admin');
+    }
     public function modify(Request $request, $userId)
     {
       if($userId != $request->user()->id){
         echo "id mismatch";
         echo $userId;
         echo $request->user()->id;
-        return redirect('/user/'.$request->user()->id);
+        return redrect('/user/'.$request->user()->id);
       }
 
       $new_username = $request->newUsername;
@@ -30,7 +50,7 @@ class UserController extends Controller
       $homepage_url = $request->homepage;
       $image_url = $request->imagURL;
       $profile_col = $request->profileColour;
-
+      $private_snippet = $request->private_snippet;
       $user = User::find($userId);
       if($new_username !== "")
       {
@@ -49,6 +69,10 @@ class UserController extends Controller
         $user->colour = $profile_col;
       }
 
+      if($private_snippet !== "")
+      {
+        $user->private_snippet = $private_snippet;
+      }
       if($old_pwd !== "" && Hash::check($old_pwd, $request->user()->password)) {
           if($new_pwd !== "" && $new_pwd === $new_pwd_confirm){
             $user->password = bcrypt($new_pwd);

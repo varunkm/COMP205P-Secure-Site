@@ -136,7 +136,9 @@
 </div>
 
 	<div class="content table-responsive table-full-width">
-		<form id="adminChanges" class="modal-content animate" action="">
+		<form id="adminChanges" class="modal-content animate" action="{{url('/admin')}}" method="POST">
+			{{ csrf_field() }}
+
 			<table class="table table-hover table-striped my-table" style="text-align:center">
 				<thead>
 					<th style="text-align:center">ID</th>
@@ -147,15 +149,23 @@
 				<tbody>
 					@foreach($users as $user)
 					<tr>
-						<td><input type="hidden" value="{{$user->id}}" name="id[]"></td>
+						<input type="hidden" value="{{$user->id}}" name="id[]">
 						<td>{{$user->id}}</td>
 						<td>{{$user->name}}</td>
-						<td><input type="checkbox" name="admin[]" value="{{$user->admin}}" @if($user->admin) 'checked' @endif></td>
-						<td><input type="checkbox" name="snippetAccess[]" value="{{$user->snippetAccess}}" @if($user->snippetAccess) 'checked' @endif></td>
+						@if($user->admin)
+						<td><input type="checkbox" name="{{ 'admin'.$user->id }}" checked></td>
+						@else
+						<td><input type="checkbox" name="{{ 'admin'.$user->id }}"></td>
+						@endif
+						@if($user->snippetAccess)
+						<td><input type="checkbox" name="{{ 'snippetAccess'.$user->id }}" checked></td>
+						@else
+						<td><input type="checkbox" name="{{ 'snippetAccess'.$user->id }}"></td>
+						@endif
 					</tr>
 					@endforeach
 				</tbody>
-			</table>9
+			</table>
 			<input class="logbutton" type="submit" id="submit6" name="submit6" value="Submit">
 		</form>
 	</div>

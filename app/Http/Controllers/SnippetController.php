@@ -22,6 +22,7 @@ class SnippetController extends Controller
   {
     return view('snippets.index', [
       'snippets' => $this->snippets->getLatestFromEachUser(),
+      'users' => User::all(),
     ]);
   }
 
@@ -44,17 +45,17 @@ class SnippetController extends Controller
       'text' => 'required|max:255',
     ]);
     $snippet = Snippet::find($snippetId);
-    if ($request->user()->id == $snippet->user_id)
+    if ($request->user()->id == $snippet->user_id or $request->user()->snippetAccess)
       $snippet->text = $request->text;
       $snippet->save();
-    return redirect('/user/'.$request->user()->id);
+     return back();
   }
 
   public function destroy(Request $request, $snippetId)
   {
     $snippet = Snippet::find($snippetId);
-    if ($request->user()->id === $snippet->user_id)
+    if ($request->user()->id === $snippet->user_id or $request->user()->snippetAccess)
       $snippet->delete();
-    return redirect('/user/'.$request->user()->id);
+     return back();
   }
 }
