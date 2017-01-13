@@ -22,6 +22,8 @@ Route::group(
   Route::delete('/snippet/{id}', 'SnippetController@destroy');
   Route::post('/snippet/edit/{id}', 'SnippetController@modify');
   Route::post('/user/edit/{user_id}','UserController@modify');
+  Route::post('/file', 'FileController@store');
+  Route::get('/file/{file_id}','FileController@retrieve');
 });
 Route::group(
   [ 'middleware' => ['auth','App\Http\Middleware\AdminMiddleware']],function(){

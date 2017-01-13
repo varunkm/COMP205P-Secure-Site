@@ -23,7 +23,11 @@
 			<nav class="links">
 				<ul>
 					@if (Auth::guest())
+
 					@elseif (Auth::user()->id == $user->id)
+					@if (Auth::user()->admin)
+					<li><a href="{{url('/admin')}}">Admin</a></li>
+					@endif
 					<li id="li6" class="menuLogin">New Snippet</li>
 					<li id="li3" class="menuLogin">Settings</li>
 					<li id="li4" class="menuLogin">Upload</li>
@@ -39,6 +43,9 @@
 					</form>
 				</li>
 				@else
+				@if (Auth::user()->admin)
+				<li><a href="{{url('/admin')}}">Admin</a></li>
+				@endif
 				<li id="username"> <a href="{{ url('/user/'.Auth::user()->id) }}"> {{ Auth::user()->name }} </a></li>
 				<li id="logout">
 					<a href="{{ url('/logout') }}"
@@ -95,16 +102,16 @@
 
 
 <div id="id04" class="modal">
-	<form class="modal-content animate" action="">
+	<form class="modal-content animate" method="POST" action="{{ url('/file') }}" files="true" enctype="multipart/form-data">
+		{{ csrf_field() }}
 		<div class="imgcontainer">
 			<span onclick="document.getElementById('id04').style.display='none'" class="close" title="Close Modal">&times;</span>
 		</div>
 
 		<div class="logcontainer">
 			<label><b>Upload Image</b></label>
-			<input type="file" name="pic" accept="image/*">
+			<input type="file" name="image_file" accept="image/*">
 			<input class="logbutton" type="submit" value="Submit">
-
 		</div>
 
 		<div class="container" style="background-color:#f1f1f1">

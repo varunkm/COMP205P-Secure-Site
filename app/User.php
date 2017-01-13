@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Snippet;
+use App\File;
 class User extends Authenticatable
 {
     use Notifiable;
@@ -30,5 +31,9 @@ class User extends Authenticatable
     public function snippets()
     {
       return $this->hasMany(Snippet::class);
+    }
+    public function files()
+    {
+      return $this->hasMany(File::class);
     }
 }

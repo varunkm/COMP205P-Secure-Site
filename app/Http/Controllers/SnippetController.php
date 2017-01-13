@@ -12,12 +12,10 @@ use App\Snippet;
 class SnippetController extends Controller
 {
   protected $snippets;
-
   public function __construct(SnippetRepository $snippets)
   {
     $this->snippets = $snippets;
   }
-
   public function index(Request $request)
   {
     return view('snippets.index', [

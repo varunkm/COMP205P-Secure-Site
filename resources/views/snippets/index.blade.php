@@ -26,6 +26,9 @@
 									<li id="li1" class="menuLogin">Login</li>
 									<li id="registerbutton" class="menuLogin"><a href ="{{url('/register')}}">Sign Up</a></li>
 								@else
+								@if (Auth::user()->admin)
+								<li><a href="{{url('/admin')}}">Admin</a></li>
+								@endif
 									<li id="username"> <a href="{{ url('/user/'.Auth::user()->id) }}"> {{ Auth::user()->name }} </a></li>
 									<li id="logout">
 										<a href="{{ url('/logout') }}"
