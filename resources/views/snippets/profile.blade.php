@@ -2,7 +2,7 @@
 
 <html>
 <head>
-	<title>COMP205P</title>
+	<title>{{ config('app.name', 'Laravel') }}</title>
 	<meta charset="utf-8" />
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -19,12 +19,12 @@
 
 		<!-- Header -->
 		<header id="header">
-			<h1><a href="{{url('/')}}">COMP205P</a></h1>
+			<h1><a href="{{url('/')}}">{{ config('app.name', 'Laravel') }}</a></h1>
 			<nav class="links">
 				<ul>
 					@if (Auth::guest())
-					<li id="li1" class="menuLogin">Login</li>
-					<li id="registerbutton" class="menuLogin"><a href ="{{url('/register')}}">Sign Up</a></li>
+					<li><a href="{{ url('/login') }} ">Login</a></li>
+					<li><a href ="{{url('/register')}}">Sign Up</a></li>
 					@elseif (Auth::user()->id == $user->id)
 					@if (Auth::user()->admin)
 					<li><a href="{{url('/admin')}}">Admin</a></li>

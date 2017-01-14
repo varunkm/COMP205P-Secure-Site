@@ -2,7 +2,7 @@
 
 <html>
 	<head>
-		<title>COMP205P</title>
+		<title>{{ config('app.name', 'Laravel') }}</title>
 		<meta charset="utf-8" />
 		<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -19,12 +19,12 @@
 
 				<!-- Header -->
 					<header id="header">
-						<h1><a href="{{url('/')}}">COMP205P</a></h1>
+						<h1><a href="{{url('/')}}">{{ config('app.name', 'Laravel') }}</a></h1>
 						<nav class="links">
 							<ul>
 								@if(Auth::guest())
-									<li id="li1" class="menuLogin">Login</li>
-									<li id="registerbutton" class="menuLogin"><a href ="{{url('/register')}}">Sign Up</a></li>
+									<li><a href="{{ url('/login') }} ">Login</a></li>
+									<li><a href ="{{url('/register')}}">Sign Up</a></li>
 								@else
 								@if (Auth::user()->admin)
 								<li><a href="{{url('/admin')}}">Admin</a></li>
@@ -45,60 +45,6 @@
 							</ul>
 						</nav>
 					</header>
-
-					<div id="id01" class="modal">
-						<form id="logForm" class="modal-content animate" action="{{ url('/login') }}" method="POST">
-							{{ csrf_field() }}
-    						<div class="imgcontainer">
-      							<span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-      							<img src="images/img_avatar2.png" alt="Avatar" class="avatar">
-    						</div>
-
-    						<div class="logcontainer">
-      							<label><b>Username</b></label>
-      							<input type="text" placeholder="Enter Email" id="logUsername" name="email">
-      							<label><b>Password</b></label>
-      							<input type="password" placeholder="Enter Password" id="logPassword" name="password">
-
-      							<input class="logbutton" type="submit" id="submit1" name="submit1" value="Login">
-      							<input type="checkbox" name="remember" value="yeah" checked> Remember me
-    						</div>
-
-    						<div class="container" style="background-color:#f1f1f1">
-      							<button type="button" onclick="document.getElementById('id01').style.display='none'" class="logcancelbtn">Cancel</button>
-      						<span class="psw" style="padding-right: 20px;"> <a href="{{ url('/password/reset') }}" id="forgotPassword">Forgot Password</a></span>
-    						</div>
-  						</form>
-					</div>
-
-					<div id="id02" class="modal">
-						<form id="signUpForm" class="modal-content animate" action="{{ url('/register') }}" method ="POST">
-							{{ csrf_field() }}
-								<div class="imgcontainer">
-      							<span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
-      							<img src="/images/img_avatar2.png" alt="Avatar" class="avatar">
-    						</div>
-
-    						<div class="logcontainer">
-      							<label><b>Username</b></label>
-      							<input type="text" placeholder="Enter Username" id="username" name="name">
-								<label><b>Email</b></label>
-      							<input type="text" placeholder="Enter Email" id="email" name="email">
-      							<label><b>Password</b></label>
-      							<input type="password" placeholder="Enter Password" class="form-control" id="password" name="password">
-								<label><b>Confirm Password</b></label>
-      							<input type="password" placeholder="Re-Enter Password" class="form-control" id="password_confirmation" name="password_confirmation">
-
-      							<input class="logbutton" type="submit" id="submit2" name="submit2" value="SignUp">
-
-    						</div>
-
-    						<div class="container" style="background-color:#f1f1f1">
-      							<button type="button" onclick="document.getElementById('id02').style.display='none'" class="logcancelbtn">Cancel</button>
-    						</div>
-  						</form>
-					</div>
-
 
 					<div id="id05" class="modal">
 						<form id="forgotPasswordForm" class="modal-content animate" action="">
