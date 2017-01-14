@@ -18,15 +18,18 @@ Route::get('/snippets', 'SnippetController@index');
 Route::get('/user/{user_id}', 'UserController@profile');
 Route::group(
   [ 'middleware' => ['auth']],function(){
-  Route::post('/snippet', ['as' => 'createSnippet', 'uses' => 'SnippetController@store']);
-  Route::delete('/snippet/{id}', 'SnippetController@destroy');
-  Route::post('/snippet/edit/{id}', 'SnippetController@modify');
   Route::post('/user/edit/{user_id}','UserController@modify');
   Route::post('/file', 'FileController@store');
   Route::get('/file/{file_id}','FileController@retrieve');
+  Route::delete('/snippet/{id}', 'SnippetController@destroy');
+  Route::post('/snippet/edit/{id}', 'SnippetController@modify');
 });
 Route::group(
   [ 'middleware' => ['auth','App\Http\Middleware\AdminMiddleware']],function(){
     Route::get('/admin','UserController@admin');
     Route::post('/admin','UserController@changeAdmin');
+  });
+Route::group(
+  [ 'middleware' => ['auth','App\Http\Middleware\SnippetMiddleware']],function(){
+    Route::post('/snippet', ['as' => 'createSnippet', 'uses' => 'SnippetController@store']);
   });

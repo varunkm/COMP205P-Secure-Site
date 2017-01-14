@@ -123,7 +123,7 @@
 					<!-- Main -->
 					<div id="main">
 						<div class="title">
-							<h1>Latest Snippets</h1>
+							<h1>Home</h1>
 						</div>
 						<!-- Post -->
 						@if (count($users) > 0)

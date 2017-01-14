@@ -9,8 +9,8 @@ class UserController extends Controller
 {
     public function profile(Request $request, $userId){
       return view('snippets.profile', [
-          'user' => User::where('id',$userId)->get()->first(),
-          'snippets' =>Snippet::where('user_id',$userId)->get(),
+          'user'=> User::where('id',$userId)->get()->first(),
+          'snippets'=>Snippet::where('user_id',$userId)->get(),
       ]);
     }
     public function admin(Request $request)
@@ -25,24 +25,19 @@ class UserController extends Controller
       $users = User::all();
       foreach($users as $user)
       {
-        $admin = $request->input('admin'.$user->id,($user->admin ? 'on' : 'off'));
-        $snip_acc = $request->input('snippetAccess'.$user->id,($user->snippetAccess ? 'on':'off'));
+        $admin = $request->input('admin'.$user->id,'off');
+        $snip_acc = $request->input('snippetAccess'.$user->id,'off');
         $user->admin = $admin=='on';
         $user->snippetAccess = $snip_acc=='on';
         $user->save();
-
       }
       return redirect('/admin');
     }
     public function modify(Request $request, $userId)
     {
-      if($userId != $request->user()->id){
-        echo "id mismatch";
-        echo $userId;
-        echo $request->user()->id;
-        return redrect('/user/'.$request->user()->id);
+      if($userId != $request->user()->id and !$request->user()->admin){
+        abort(403, 'You do not have permission to do that.');
       }
-
       $new_username = $request->newUsername;
       $old_pwd = $request->oldPassword;
       $new_pwd = $request->newPassword;
@@ -79,7 +74,7 @@ class UserController extends Controller
           }
       }
       $user->save();
-      return redirect('/user/'.$request->user()->id);
+      return redirect('/user/'.$user->id);
 
     }
 }

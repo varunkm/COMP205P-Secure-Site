@@ -24,7 +24,9 @@
 				<ul>
 					@if (Auth::guest())
 					@elseif (Auth::user()->id == $user->id)
+					@if(Auth::user()->snippetAccess)
 					<li id="li6" class="menuLogin">New Snippet</li>
+					@endif
 					<li id="li3" class="menuLogin">Settings</li>
 					<li id="li4" class="menuLogin">Upload</li>
 					<li id="logout">

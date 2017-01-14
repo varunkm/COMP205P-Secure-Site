@@ -43,7 +43,7 @@ class SnippetController extends Controller
       'text' => 'required|max:255',
     ]);
     $snippet = Snippet::find($snippetId);
-    if ($request->user()->id == $snippet->user_id or $request->user()->snippetAccess)
+    if ($request->user()->id == $snippet->user_id or $request->user()->admin)
       $snippet->text = $request->text;
       $snippet->save();
      return back();
@@ -52,7 +52,7 @@ class SnippetController extends Controller
   public function destroy(Request $request, $snippetId)
   {
     $snippet = Snippet::find($snippetId);
-    if ($request->user()->id === $snippet->user_id or $request->user()->snippetAccess)
+    if ($request->user()->id === $snippet->user_id or $request->user()->admin)
       $snippet->delete();
      return back();
   }

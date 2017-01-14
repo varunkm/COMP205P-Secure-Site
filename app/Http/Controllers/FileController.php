@@ -23,7 +23,7 @@ class FileController extends Controller
   {
     $file = File::find($file_id);
     if($request->user()->id != $file->user_id)
-      return redirect('/');
+      abort(403, 'You do not have permission to see this.');
     return response()->download(storage_path($file->filepath), null, [], null);
   }
 }
