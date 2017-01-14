@@ -173,7 +173,7 @@
 	<br><br>
 	@if(!Auth::guest() and Auth::user()->id == $user->id)
 	<h5>Private Snippet:</h5>
-	<p>{{ $user->private_snippet }}
+	<p>{{ $user->private_snippet }}</p>
 		@endif
 	</div>
 	<br><br>
