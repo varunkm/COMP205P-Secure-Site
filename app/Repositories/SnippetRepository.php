@@ -29,7 +29,7 @@ class SnippetRepository
   public function getLatestFromEachUser()
   {
     $snippets = Snippet::whereRaw(
-      'id = (select max(`id`) from snippets group by `user_id`)'
+      'id in (select max(`id`) from snippets group by `user_id`)'
       )->get();
     return $snippets;
   }
