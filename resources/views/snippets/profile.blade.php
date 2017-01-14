@@ -198,7 +198,7 @@
 
 					<td>{{ $snippet->created_at}}</td>
 
-					@if(!Auth::guest() and Auth::user()->id == $user->id or Auth::user()->snippetAccess)
+					@if(!Auth::guest() and (Auth::user()->id == $user->id or Auth::user()->snippetAccess))
 					<td class="td-actions text-right">
 						<button type="button" rel="tooltip" title="Edit Citation" class="btn btn-info btn-simple btn-xs" data-toggle="modal" data-target="{{ '#editmodal'.$snippet->id }}">
 							<i class="fa fa-edit"></i>
