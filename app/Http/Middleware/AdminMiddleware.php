@@ -17,7 +17,7 @@ class AdminMiddleware
     {
       if (!($request->user()->admin))
       {
-          abort(403, 'You do not have admin privilege')
+          abort(403, 'You do not have admin privileges');
       }
 
       return $next($request);
