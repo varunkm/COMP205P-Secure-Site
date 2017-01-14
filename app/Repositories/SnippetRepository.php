@@ -28,13 +28,9 @@ class SnippetRepository
 
   public function getLatestFromEachUser()
   {
-    $ids = DB::table('snippets')
-        ->select(DB::raw('max(id) as id'))
-        ->groupBy('user_id')
-        ->get();
-    $snippets = Snippet::where('id',($ids[0])->id);
-    foreach($ids as $id)
-      $snippets->orWhere('id',$id->id);
-    return $snippets->get();
+    $snippets = Snippet::whereRaw(
+      'id = (select max(`id`) from snippets group by `user_id`)'
+      )->get();
+    return $snippets;
   }
 }
