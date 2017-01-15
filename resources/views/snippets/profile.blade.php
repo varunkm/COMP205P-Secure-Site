@@ -215,7 +215,7 @@
 	@endif
 	<img src="{{ $user->icon_url }}" alt="User Image" width = "100px">
 	<h2 style="color:{{$user->colour}}">{{ $user->name }}</h2>
-	<a href="{{ $user->homepage }}">My Site</a>
+	<a href="javascript:confirmNav('{{ $user->homepage }}')">My Site</a>
 	<br><br>
 	@if(!Auth::guest() and Auth::user()->id == $user->id)
 	<h5>Private Snippet:</h5>
@@ -327,6 +327,14 @@
 		document.getElementById('id06').style.display='block';
 	});
 	</script>
+	<script type="text/javascript">
+	function confirmNav(url) {
+			yes = confirm('do you want to go to ' +url);
+			if(yes)
+				$(location).attr('href', url);
+			return true;
+	}
+</script>
 
 
 </body>

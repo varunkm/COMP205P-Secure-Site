@@ -80,7 +80,7 @@
 									<img style="display:inline" src="{{ $user->icon_url }}" width = "30px">
 									<h2 style="display:inline;margin-left:20px;color:{{$user->colour}}"><a href="{{ url('/user/'.($user->id)) }}">{{ $user->name }}</a></h2>
 									<br>
-									<a href="{{$user->homepage}}">{{$user->name.'\'s site'}}</a>
+									<a href="javascript:confirmNav('{{ $user->homepage }}')" >{{$user->name.'\'s site'}}</a>
 								</div>
 							</header>
 									@foreach ($snippets as $snippet)
@@ -184,7 +184,14 @@
 				document.getElementById('id05').style.display='block';
 			});
 			</script>
-
+			<script type="text/javascript">
+			function confirmNav(url) {
+			    yes = confirm('do you want to go to ' +url);
+			  	if(yes)
+						$(location).attr('href', url);
+					return true;
+			}
+			</script>
 
 	</body>
 </html>
