@@ -11,6 +11,9 @@ class FileController extends Controller
 {
   public function store(Request $request)
   {
+      $this->validate($request, [
+        'image_file' => 'required|max:5000',
+      ]);
       $file = $request->file('image_file');
       $path = $file->store('user_files');
       $file_obj = $request->user()->files()->create([

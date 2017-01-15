@@ -153,6 +153,7 @@
 
 		<div class="logcontainer">
 			<label><b>Upload Image</b></label>
+			<p><i>Files must be smaller than 5MB</i></p>
 			<input type="file" name="image_file" accept="image/*">
 			<input class="logbutton" type="submit" value="Submit">
 		</div>
