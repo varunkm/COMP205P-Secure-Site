@@ -43,7 +43,13 @@
 
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control" name="password" required>
-
+                                <p>Password must be at least 6 characters long and have characters from at least 3 of the 5 categories below:</p>
+                                <ul>
+                                  <li>Uppercase Letters (A-Z)</li>
+                                  <li>Lowercase Letters (a-z)</li>
+                                  <li>Numbers (0-9)</li>
+                                  <li>Special Characters (e.g. !, $, #, or %)</li>
+                                </ul>
                                 @if ($errors->has('password'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('password') }}</strong>
