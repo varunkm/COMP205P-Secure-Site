@@ -211,7 +211,7 @@
 @endif
 <div style="margin-left:20px">
 	@if(!Auth::guest() and Auth::user()->admin)
-	<p id="editprofadmin"><b><i>Edit this profile...</i></b></p>
+	<p id="editprofadmin" onclick="document.getElementById('id08').style.display='block';"><b><i>Edit this profile...</i></b></p>
 	@endif
 	<img src="{{ $user->icon_url }}" alt="User Image" width = "100px">
 	<h2 style="color:{{$user->colour}}">{{ $user->name }}</h2>
@@ -311,28 +311,19 @@
 
 
 	<script>
-	$('#editprofadmin').click(function(){
-		document.getElementById('id04').style.display='none';
-		document.getElementById('id06').style.display='none';
-		document.getElementById('id03').style.display='none';
-		document.getElementById('id08').style.display='block';
-	});
 	$('#li3').click(function(){
 		document.getElementById('id04').style.display='none';
-		document.getElementById('id08').style.display='none';
 		document.getElementById('id06').style.display='none';
 		document.getElementById('id03').style.display='block';
 	});
 	$('#li4').click(function(){
 		document.getElementById('id03').style.display='none';
 		document.getElementById('id06').style.display='none';
-		document.getElementById('id08').style.display='none';
 		document.getElementById('id04').style.display='block';
 	});
 	$('#li6').click(function(){
 		document.getElementById('id03').style.display='none';
 		document.getElementById('id04').style.display='none';
-		document.getElementById('id08').style.display='none';
 		document.getElementById('id06').style.display='block';
 	});
 	</script>
